@@ -1,0 +1,7 @@
+---
+- hosts: servers
+  sudo: true
+  user: vagrant
+  roles:
+    - java
+    - jenkins
