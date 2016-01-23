@@ -4,4 +4,3 @@
   user: vagrant
   roles:
     - java
-    - jenkins
