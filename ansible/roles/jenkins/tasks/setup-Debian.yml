@@ -1,0 +1,9 @@
+# from https://docs.docker.com/engine/installation/ubuntulinux/
+- name: add the new gpg key
+  shell: wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+- name: add the new gpg key
+  shell: sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+- name: update the apt package index
+  shell: apt-get update
+- name: install docker
+  apt: name=jenkins state=installed
