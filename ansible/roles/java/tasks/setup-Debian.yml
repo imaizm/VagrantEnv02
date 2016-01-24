@@ -1,0 +1,4 @@
+- name: add openjdk repo
+  shell: add-apt-repository ppa:openjdk-r/ppa
+- name: install java
+  apt: name=openjdk-8-jdk state=latest
