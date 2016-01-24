@@ -1,2 +1,4 @@
-- name: install java
-  yum: name=java-1.7.0-openjdk state=latest
+- name: install docker
+  yum: name=docker state=latest
+- name: enable docker
+  service: name=docker enabled=yes state=started
