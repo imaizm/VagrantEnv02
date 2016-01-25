@@ -1,4 +1,4 @@
-- name: [Debian] add openjdk repo
+- name: (Debian) add openjdk repo
   shell: add-apt-repository ppa:openjdk-r/ppa
-- name: [Debian] install java
+- name: (Debian) install java
   apt: name=openjdk-8-jdk state=latest
