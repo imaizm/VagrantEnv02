@@ -1,4 +1,4 @@
-- name: install docker
+- name: [RedHat] install docker
   yum: name=docker state=latest
-- name: enable docker
+- name: [RedHat] enable docker
   service: name=docker enabled=yes state=started

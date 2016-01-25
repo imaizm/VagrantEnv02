@@ -1,2 +1,2 @@
-- name: install java
+- name: [RedHat] install java
   yum: name=java-1.7.0-openjdk state=latest
