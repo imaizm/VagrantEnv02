@@ -3,5 +3,4 @@
   sudo: true
   user: vagrant
   roles:
-    - java
-    - jenkins
+    - docker

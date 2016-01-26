@@ -1,0 +1,13 @@
+---
+- hosts: servers
+  sudo: true
+  user: vagrant
+  vars:
+    svn_repo: "/home/vagrant/svn/svn"
+    svn_backup: "/home/vagrant/svn/svn-backup"
+    svn_dav: "/home/vagrant/svn/dav_svn"
+    svn_port_http: 8080
+    svn_port_https: 8443
+  roles:
+    - docker
+    - docker-subversion
