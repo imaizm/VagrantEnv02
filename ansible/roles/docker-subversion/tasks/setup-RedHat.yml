@@ -1,7 +1,3 @@
-- name: add vagrant user to docker group
-  shell: |
-    groupadd docker
-    gpasswd -a vagrant docker
 - name: (RedHat) mkdir svn_repo
   file: path={{ svn_repo }} state=directory recurse=yes owner=vagrant group=vagrant mode=0777
 - name: (RedHat) mkdir svn_backup
@@ -12,3 +8,5 @@
   template: src=docker-subversion.service.j2 dest=/usr/lib/systemd/system/docker-subversion.service
 - name: (RedHat) enable docker-subversion
   service: name=docker-subversion enabled=yes state=started
+- name: (RedHat) install httpd-tools
+  yum: name=httpd-tools state=latest
