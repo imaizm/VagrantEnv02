@@ -1,0 +1,7 @@
+- name: (RedHat) install php
+  yum: name={{ item }} state=installed
+  with_items:
+    - php
+    - php-pdo
+    - php-mbstring
+    - php-mcrypt
