@@ -1,5 +1,4 @@
 ---
-# elasticsearch
 - include: setup-Debian.yml
   when: "ansible_os_family == 'Debian'"
 

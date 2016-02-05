@@ -1,5 +1,4 @@
 ---
-# elasticsearch
 - name: install elasticsearch
   shell: |
     if [ ! -e {{ elasticsearch_install_to }}/elasticsearch-{{ elasticsearch_install_version }} ]; then
