@@ -1,0 +1,7 @@
+- name: install composer
+  shell: |
+    if [ ! -e /usr/local/bin/composer ]; then
+        cd /usr/local/bin/
+        curl -sS https://getcomposer.org/installer | php
+        mv composer.phar composer
+    fi
