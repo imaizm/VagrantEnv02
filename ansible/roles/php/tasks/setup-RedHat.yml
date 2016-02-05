@@ -5,3 +5,14 @@
     - php-pdo
     - php-mbstring
     - php-mcrypt
+    - php-xml
+
+- name: (RedHat) backup php.ini
+  shell: |
+    if [ ! -e /etc/php.ini.original ]; then
+        cd /etc
+        cp php.ini php.ini.original
+    fi
+
+- name: (RedHat) set php.ini
+  template: src=php.ini.j2 dest=/etc/php.ini
