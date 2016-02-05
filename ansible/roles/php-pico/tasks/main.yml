@@ -4,5 +4,5 @@
         cd /var/www/src
         git clone https://github.com/picocms/Pico.git
         cd Pico
-        composer install
+        /usr/local/bin/composer install
     fi
