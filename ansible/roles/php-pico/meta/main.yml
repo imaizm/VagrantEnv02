@@ -1,5 +1,4 @@
 ---
 dependencies:
-  - { role: php }
   - { role: php-composer }
   - { role: git }
