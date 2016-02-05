@@ -3,4 +3,7 @@
   sudo: true
   user: vagrant
   roles:
-    - docker
+    - curl
+    - unzip
+    - java
+    - elasticsearch
