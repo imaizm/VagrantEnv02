@@ -1,8 +1,10 @@
-- name: (RedHat)add vagrant user to docker group
+- name: (RedHat) add vagrant user to docker group
   shell: |
     groupadd docker
     gpasswd -a vagrant docker
+
 - name: (RedHat) install docker
   yum: name=docker state=latest
+
 - name: (RedHat) enable docker
   service: name=docker enabled=yes state=started
