@@ -3,7 +3,4 @@
   sudo: true
   user: vagrant
   roles:
-    - curl
-    - unzip
-    - java
-    - elasticsearch
+    - php-pico
