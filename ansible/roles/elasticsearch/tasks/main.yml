@@ -1,0 +1,21 @@
+---
+# elasticsearch
+- name: install elasticsearch
+  shell: |
+    if [ ! -e {{ elasticsearch_install_to }}/elasticsearch-{{ elasticsearch_install_version }} ]; then
+        cd {{ elasticsearch_install_to }}
+        curl -sSL https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/{{ elasticsearch_install_version }}/elasticsearch-{{ elasticsearch_install_version }}.zip -o elasticsearch.zip
+        unzip elasticsearch.zip > /dev/null 2>&1
+        rm elasticsearch.zip
+        chown -R {{ elasticsearch_exec_user }} elasticsearch-{{ elasticsearch_install_version }}
+    fi
+- name: install analysis-kuromoji-plugin
+  shell: |
+    if [ ! -e {{ elasticsearch_install_to }}/elasticsearch-{{ elasticsearch_install_version }}/plugins/analysis-kuromoji ]; then
+        cd {{ elasticsearch_install_to }}/elasticsearch-{{ elasticsearch_install_version }}/
+        bin/plugin install analysis-kuromoji
+        cd plugins
+        chown -R {{ elasticsearch_exec_user }} analysis-kuromoji
+    fi
+- name: configure elasticsearch.yml
+  template: src=elasticsearch.yml.j2 dest={{ elasticsearch_install_to }}/elasticsearch-{{ elasticsearch_install_version }}/config/elasticsearch.yml
