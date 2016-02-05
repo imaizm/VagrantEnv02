@@ -1,0 +1,8 @@
+- name: git clone pico
+  shell: |
+    if [ ! -e /var/www/src/Pico ]; then
+        cd /var/www/src
+        git clone https://github.com/picocms/Pico.git
+        cd Pico
+        composer install
+    fi
