@@ -1,0 +1,16 @@
+---
+- hosts: servers
+  sudo: true
+  user: vagrant
+  vars:
+    elasticsearch_install_to: "/opt"
+    elasticsearch_install_version: "2.2.0"
+    elasticsearch_exec_user: "vagrant"
+    elasticsearch_cluster_name: "sample"
+    elasticsearch_http_port: "9201"
+  roles:
+    - curl
+    - unzip
+    - java
+    - elasticsearch
+    - elasticsearch_by_pkgmgr
