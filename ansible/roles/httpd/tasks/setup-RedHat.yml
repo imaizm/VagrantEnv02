@@ -1,0 +1,19 @@
+- name: (RedHat) install httpd
+  yum: name={{ item }} state=installed
+  with_items:
+    - httpd
+    - httpd-devel
+    - mod_ssl
+
+- name: (RedHat) backup httpd.conf
+  shell: |
+    if [ ! -e /etc/httpd/conf/httpd.conf.original ]; then
+        cd /etc/httpd/conf
+        cp httpd.conf httpd.conf.original
+    fi
+
+- name: (RedHat) set httpd.conf
+  template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+
+- name: (RedHat) enable httpd
+  service: name=httpd enabled=yes state=started

@@ -1,0 +1,15 @@
+- name: (Debian) install apache2
+  apt: name=apache2 state=installed
+
+- name: (Debian) backup apache2.conf
+  shell: |
+    if [ ! -e /etc/apache2/apache2.conf.original ]; then
+        cd /etc/apache2
+        cp apache2.conf apache2.conf.original
+    fi
+
+- name: (Debian) configure apache2
+  template: src=apache2.conf_2.4.j2 dest=/etc/apache2/apache2.conf
+
+- name: (Debian) enable apache2
+  service: name=apache2 enabled=yes state=started
