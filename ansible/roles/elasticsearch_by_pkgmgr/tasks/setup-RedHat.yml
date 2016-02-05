@@ -1,8 +1,11 @@
-- name: (RedHat)import the public signing key
+- name: (RedHat) import the public signing key
   shell: rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
+
 - name: (RedHat) add yum repository
   template: src=elasticsearch.repo.j2 dest=/etc/yum.repos.d/elasticsearch.repo
-- name: (RedHat)install elasticsearch
+
+- name: (RedHat) install elasticsearch
   yum: name=elasticsearch state=installed
-- name: (RedHat)enable elasticsearch
+
+- name: (RedHat) enable elasticsearch
   service: name=elasticsearch enabled=yes state=started

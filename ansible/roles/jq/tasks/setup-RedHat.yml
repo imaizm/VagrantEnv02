@@ -1,2 +1,2 @@
-- name: (RedHat)install jq
+- name: (RedHat) install jq
   yum: name=unzip state=installed

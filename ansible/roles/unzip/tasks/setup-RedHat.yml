@@ -1,2 +1,2 @@
-- name: (RedHat)install unzip
+- name: (RedHat) install unzip
   yum: name=unzip state=installed

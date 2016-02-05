@@ -1,8 +1,11 @@
-- name: (Debian)import the public signing key
+- name: (Debian) import the public signing key
   shell: wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+
 - name: (Debian) add apt repository
   shell: echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list
-- name: (Debian)install elasticsearch
+
+- name: (Debian) install elasticsearch
   apt: name=elasticsearch state=installed
-- name: (Debian)enable elasticsearch
+
+- name: (Debian) enable elasticsearch
   service: name=elasticsearch enabled=yes state=started
