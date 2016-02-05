@@ -9,6 +9,7 @@
         rm elasticsearch.zip
         chown -R {{ elasticsearch_exec_user }} elasticsearch-{{ elasticsearch_install_version }}
     fi
+
 - name: install analysis-kuromoji-plugin
   shell: |
     if [ ! -e {{ elasticsearch_install_to }}/elasticsearch-{{ elasticsearch_install_version }}/plugins/analysis-kuromoji ]; then
@@ -17,5 +18,6 @@
         cd plugins
         chown -R {{ elasticsearch_exec_user }} analysis-kuromoji
     fi
+
 - name: configure elasticsearch.yml
   template: src=elasticsearch.yml.j2 dest={{ elasticsearch_install_to }}/elasticsearch-{{ elasticsearch_install_version }}/config/elasticsearch.yml
