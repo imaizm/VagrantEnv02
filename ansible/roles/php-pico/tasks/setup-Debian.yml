@@ -1,0 +1,3 @@
+- name: (Debian) set pico.conf to httpd conf
+  template: src=httpd_pico.conf.j2 dest=/etc/httpd/conf.d/pico.conf
+  notify: (Debian) restart httpd

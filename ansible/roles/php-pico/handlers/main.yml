@@ -1,0 +1,5 @@
+- name: (Debian) restart apache2
+  service: name=apache2 state=restarted
+
+- name: (RedHat) restart httpd
+  service: name=httpd state=restarted

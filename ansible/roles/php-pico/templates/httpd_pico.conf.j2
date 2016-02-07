@@ -1,0 +1,20 @@
+Listen {{ pico_port }}
+NameVirtualHost *:{{ pico_port }}
+
+#User vagrant
+#Group vagrant
+
+<VirtualHost *:{{ pico_port }}>
+	ServerName localhost
+	DocumentRoot {{ pico_install_path }}
+
+	<Directory "{{ pico_install_path }}">
+		AllowOverride all
+
+		# < apache 2.4
+	#	Order allow,deny
+	#	Allow from all
+		# >= apache 2.4
+		Require all granted
+	</Directory>
+</VirtualHost>

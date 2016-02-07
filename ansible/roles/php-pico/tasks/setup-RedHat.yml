@@ -1,0 +1,13 @@
+- name: (RedHat) set pico.conf to httpd conf
+  template: src=httpd_pico.conf.j2 dest=/etc/httpd/conf.d/pico.conf
+  notify: (RedHat) restart httpd
+
+- name: (RedHat) set pico.xml to firewalld services
+  template: src=firewalld_service_pico.xml.j2 dest=/etc/firewalld/services/pico.xml
+
+- name: (RedHat) register pico service to firewalld
+  shell: |
+    if ! firewall-cmd --list-service --zone=public | grep pico > /dev/null 2>&1; then
+        firewall-cmd --permanent --add-service pico
+        systemctl restart firewalld.service
+    fi

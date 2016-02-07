@@ -6,3 +6,9 @@
         cd Pico
         /usr/local/bin/composer install
     fi
+
+- include: setup-Debian.yml
+  when: "ansible_os_family == 'Debian'"
+
+- include: setup-RedHat.yml
+  when: "ansible_os_family == 'RedHat'"
