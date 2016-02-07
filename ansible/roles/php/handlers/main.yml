@@ -1,0 +1,2 @@
+- name: (RedHat) restart httpd
+  service: name=httpd state=restarted
