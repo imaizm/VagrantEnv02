@@ -17,3 +17,11 @@
 
 - name: (RedHat) enable httpd
   service: name=httpd enabled=yes state=started
+
+- name: (RedHat) register http service to firewalld
+  shell: |
+    if ! firewall-cmd --list-service --zone=public | grep http > /dev/null 2>&1; then
+        firewall-cmd --permanent --add-service http
+        firewall-cmd --permanent --add-service https
+        systemctl restart firewalld.service
+    fi
