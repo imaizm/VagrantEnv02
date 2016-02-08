@@ -1,0 +1,11 @@
+---
+- hosts: servers
+  sudo: true
+  user: vagrant
+  vars:
+    postgresql_for_gitlab_path: "/var/postgresql_for_gitlab"
+    postgresql_for_gitlab_db_name: "gitlab"
+    postgresql_for_gitlab_user: "gitlab"
+    postgresql_for_gitlab_pass: "password"
+  roles:
+    - docker-gitlab
