@@ -9,8 +9,5 @@
     elasticsearch_cluster_name: "sample"
     elasticsearch_http_port: "9201"
   roles:
-    - curl
-    - unzip
-    - java
     - elasticsearch
     - elasticsearch_by_pkgmgr

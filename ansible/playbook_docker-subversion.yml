@@ -9,5 +9,4 @@
     svn_port_http: 8080
     svn_port_https: 8443
   roles:
-    - docker
     - docker-subversion
