@@ -9,8 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.hostname = "localhost"
 
 	config.vm.network :forwarded_port, guest: 80, host: 10080 # http
-	config.vm.network :forwarded_port, guest: 8080, host: 18080 # http
-	config.vm.network :forwarded_port, guest: 3000, host: 3000 # node.js
+	config.vm.network :forwarded_port, guest: 8080, host: 8080 # http
 
 	config.vm.synced_folder ".", "/vagrant", :create => true, :owner => 'vagrant', :group => 'vagrant', :mount_options => ['dmode=777', 'fmode=600']
 	config.vm.synced_folder "../../src", "/var/www/src", :create => true, :owner => 'vagrant', :group => 'vagrant', :mount_options => ['dmode=777', 'fmode=666']
@@ -21,6 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.provision "ansible_local" do |ansible|
 		ansible.playbook = "playbook_sandbox.yml"
 #		ansible.playbook = "playbook_docker-subversion.yml"
+#		ansible.playbook = "playbook_docker-gitlab.yml"
 #		ansible.playbook = "playbook_elasticsearch.yml"
 #		ansible.playbook = "playbook_php-pico.yml"
 		ansible.provisioning_path = "/var/ansible"

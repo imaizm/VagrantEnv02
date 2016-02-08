@@ -1,0 +1,18 @@
+[Unit]
+Description=Docker Redis for GitLab Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop gitlab-redis
+ExecStartPre=-/usr/bin/docker rm gitlab-redis
+ExecStartPre=/usr/bin/docker pull sameersbn/redis:latest
+ExecStart=/usr/bin/docker run \
+  -v {{ redis_for_gitlab_path }}:/var/lib/redis:z \
+  --name gitlab-redis \
+  sameersbn/redis:latest
+TimeoutSec=1200
+
+[Install]
+WantedBy=multi-user.target

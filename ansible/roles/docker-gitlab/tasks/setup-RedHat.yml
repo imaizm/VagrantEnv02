@@ -1,17 +1,20 @@
-- name: (RedHat) mkdir svn_repo
-  file: path={{ svn_repo }} state=directory recurse=yes owner=vagrant group=vagrant mode=0777
+- name: (RedHat) mkdir required dirs
+  file: path={{ item }} state=directory recurse=yes mode=0755
+  with_items:
+    - "{{ postgresql_for_gitlab_path }}"
+    - "{{ redis_for_gitlab_path }}"
+    - "{{ gitlab_path }}"
 
-- name: (RedHat) mkdir svn_backup
-  file: path={{ svn_backup }} state=directory recurse=yes owner=vagrant group=vagrant mode=0777
+- name: (RedHat) configure docker container services
+  template: src={{ item }}.j2 dest=/usr/lib/systemd/system/{{ item }}
+  with_items:
+    - "docker-postgresql-for-gitlab.service"
+    - "docker-redis-for-gitlab.service"
+    - "docker-gitlab.service"
 
-- name: (RedHat) mkdir svn_dav
-  file: path={{ svn_dav }} state=directory recurse=yes owner=vagrant group=vagrant mode=0777
-
-- name: (RedHat) configure docker-subversion
-  template: src=docker-subversion.service.j2 dest=/usr/lib/systemd/system/docker-subversion.service
-
-- name: (RedHat) enable docker-subversion
-  service: name=docker-subversion enabled=yes state=started
-
-- name: (RedHat) install httpd-tools
-  yum: name=httpd-tools state=latest
+- name: (RedHat) enable docker container services
+  service: name={{ item }} enabled=yes state=started
+  with_items:
+    - "docker-postgresql-for-gitlab"
+    - "docker-redis-for-gitlab"
+    - "docker-gitlab"

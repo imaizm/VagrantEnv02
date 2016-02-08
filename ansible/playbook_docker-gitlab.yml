@@ -7,5 +7,9 @@
     postgresql_for_gitlab_db_name: "gitlab"
     postgresql_for_gitlab_user: "gitlab"
     postgresql_for_gitlab_pass: "password"
+    redis_for_gitlab_path: "/var/redis_for_gitlab"
+    gitlab_path: "/var/gitlab"
+    gitlab_http_port: "8080"
+    gitlab_ssh_port: "8022"
   roles:
     - docker-gitlab
