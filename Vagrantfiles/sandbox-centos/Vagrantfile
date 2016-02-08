@@ -19,10 +19,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.ssh.forward_x11 = true
 
 	config.vm.provision "ansible_local" do |ansible|
-#		ansible.playbook = "playbook_sandbox.yml"
+		ansible.playbook = "playbook_sandbox.yml"
 #		ansible.playbook = "playbook_docker-subversion.yml"
 #		ansible.playbook = "playbook_elasticsearch.yml"
-		ansible.playbook = "playbook_php-pico.yml"
+#		ansible.playbook = "playbook_php-pico.yml"
 		ansible.provisioning_path = "/var/ansible"
 		ansible.install = true
 		ansible.verbose = false
