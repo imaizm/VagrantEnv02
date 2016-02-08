@@ -3,10 +3,13 @@
   sudo: true
   user: vagrant
   vars:
-    svn_repo: "/var/svn/svn"
-    svn_backup: "/var/svn/svn-backup"
-    svn_dav: "/var/svn/dav_svn"
+    svn_repo_path: "/var/svn/repo"
+    svn_repo_backup_path: "/var/svn/repo-backup"
+    svn_dav_config_path: "/var/svn/dav-config"
     svn_port_http: 8080
     svn_port_https: 8443
+    svn_repos:
+      - { name: temp1 }
+      - { name: temp2 }
   roles:
     - docker-subversion

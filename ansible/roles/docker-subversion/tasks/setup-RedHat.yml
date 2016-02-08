@@ -1,17 +1,22 @@
-- name: (RedHat) mkdir svn_repo
-  file: path={{ svn_repo }} state=directory recurse=yes owner=vagrant group=vagrant mode=0777
-
-- name: (RedHat) mkdir svn_backup
-  file: path={{ svn_backup }} state=directory recurse=yes owner=vagrant group=vagrant mode=0777
-
-- name: (RedHat) mkdir svn_dav
-  file: path={{ svn_dav }} state=directory recurse=yes owner=vagrant group=vagrant mode=0777
+- name: (RedHat) mkdir svn dirs
+  file: path={{ item }} state=directory recurse=yes owner=vagrant group=vagrant mode=0777
+  with_items:
+    - "{{ svn_repo_path }}"
+    - "{{ svn_repo_backup_path }}"
+    - "{{ svn_dav_config_path }}"
 
 - name: (RedHat) configure docker-subversion
   template: src=docker-subversion.service.j2 dest=/usr/lib/systemd/system/docker-subversion.service
 
 - name: (RedHat) enable docker-subversion
   service: name=docker-subversion enabled=yes state=started
+
+- name: (RedHat) mkdir svn repos
+  file: path={{ svn_repo_path }}/{{ item.name }} state=directory recurse=yes owner=vagrant group=vagrant mode=0777
+  with_items: svn_repos
+
+- name: (RedHat) run svn-project-creator.sh
+  shell: docker exec subversion /usr/local/bin/svn-project-creator.sh
 
 - name: (RedHat) install httpd-tools
   yum: name=httpd-tools state=latest
