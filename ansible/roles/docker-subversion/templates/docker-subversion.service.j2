@@ -8,7 +8,7 @@ Type=simple
 ExecStartPre=-/usr/bin/docker stop subversion
 ExecStartPre=-/usr/bin/docker rm subversion
 ExecStartPre=/usr/bin/docker pull marvambass/subversion
-ExecStart=/usr/bin/docker run -v {{ svn_repo }}:/var/local/svn -v {{ svn_backup }}:/var/svn-backup -v {{ svn_dav }}/:/etc/apache2/dav_svn/ -p {{ svn_port_http }}:80 -p {{ svn_port_https }}:443 --name subversion marvambass/subversion
+ExecStart=/usr/bin/docker run -v {{ svn_repo }}:/var/local/svn:z -v {{ svn_backup }}:/var/svn-backup:z -v {{ svn_dav }}/:/etc/apache2/dav_svn/:z -p {{ svn_port_http }}:80 -p {{ svn_port_https }}:443 --name subversion marvambass/subversion
 TimeoutSec=1200
 
 [Install]
