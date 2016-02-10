@@ -18,5 +18,16 @@
 - name: (RedHat) run svn-project-creator.sh
   shell: docker exec subversion /usr/local/bin/svn-project-creator.sh
 
+- name: (RedHat) set pre-revpop-change
+  template: src=pre-revprop-change.j2 dest={{ svn_repo_path }}/{{ item.name }}/hooks/pre-revprop-change mode=0755
+  with_items: svn_repos
+
 - name: (RedHat) install httpd-tools
   yum: name=httpd-tools state=latest
+
+- name: (RedHat) add svn user
+  shell: |
+    if ! grep '{{ item }}' {{ svn_dav_config_path }}/dav_svn.passwd > /dev/null 2>&1; then
+        echo '{{ item }}' >> {{ svn_dav_config_path }}/dav_svn.passwd
+    fi
+  with_items: svn_users
