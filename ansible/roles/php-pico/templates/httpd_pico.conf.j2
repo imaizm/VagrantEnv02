@@ -1,11 +1,6 @@
 Listen {{ pico_port }}
-NameVirtualHost *:{{ pico_port }}
-
-#User vagrant
-#Group vagrant
 
 <VirtualHost *:{{ pico_port }}>
-	ServerName localhost
 	DocumentRoot {{ pico_install_path }}
 
 	<Directory "{{ pico_install_path }}">
