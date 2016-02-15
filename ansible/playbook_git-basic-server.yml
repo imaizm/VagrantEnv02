@@ -1,0 +1,12 @@
+---
+- hosts: servers
+  sudo: true
+  user: vagrant
+  vars:
+    git_repo_owner: "git"
+    git_repo_path: "/var/git"
+    git_repos:
+      - "temp1.git"
+      - "temp2.git"
+  roles:
+    - git-basic-server
