@@ -8,5 +8,7 @@
     git_repos:
       - "temp1.git"
       - "temp2.git"
+    git_users:
+      - "vagrant"
   roles:
     - git-basic-server

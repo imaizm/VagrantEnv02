@@ -2,10 +2,20 @@
   user: name={{ git_repo_owner }} home={{ git_repo_path }}
 
 - name: mkdir git repo
-  file: path={{ git_repo_path }} state=directory recurse=yes mode=0750 owner={{ git_repo_owner }} group={{ git_repo_owner }}
+  file: >
+    path={{ git_repo_path }}
+    state=directory recurse=yes
+    mode=0750
+    owner={{ git_repo_owner }}
+    group={{ git_repo_owner }}
 
 - name: mkdir git repo owner .ssh
-  file: path={{ git_repo_path }}/.ssh state=directory recurse=yes mode=0700 owner={{ git_repo_owner }} group={{ git_repo_owner }}
+  file: >
+    path={{ git_repo_path }}/.ssh
+    state=directory recurse=yes
+    mode=0700
+    owner={{ git_repo_owner }}
+    group={{ git_repo_owner }}
 
 - name: touch git repo owner .ssh/authorized_keys
   file: >
@@ -18,15 +28,27 @@
 - name: create git repos
   file: >
     path={{ git_repo_path }}/{{ item }}
-    state=directory
-    recurse=yes
+    state=directory recurse=yes
     mode=0750
     owner={{ git_repo_owner }}
     group={{ git_repo_owner }}
   with_items: git_repos
 
 - name: init git repos
-  shell: git init --bare --shared=0640 {{ item }} chdir={{ git_repo_path }}
+  shell: git init --bare --shared {{ item }} chdir={{ git_repo_path }}
   become: yes
   become_user: "{{ git_repo_owner }}"
   with_items: git_repos
+
+- name: register git user
+  shell: |
+    if [ -e /home/{{ item }}/.ssh/authorized_keys ] \
+        && ! grep -f /home/{{ item }}/.ssh/authorized_keys {{ git_repo_path }}/.ssh/authorized_keys; then
+        cat /home/{{ item }}/.ssh/authorized_keys >> {{ git_repo_path }}/.ssh/authorized_keys
+    fi
+  with_items: git_users
+
+# git-daemon
+
+- include: setup-RedHat.yml
+  when: "ansible_os_family == 'RedHat'"

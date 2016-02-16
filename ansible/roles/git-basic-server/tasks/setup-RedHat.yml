@@ -1,0 +1,22 @@
+- name: (RedHat) install git-daemon
+  yum: name=git-daemon state=installed
+
+- name: (RedHat) backup git@.service
+  shell: |
+    if [ ! -e /usr/lib/systemd/system/git@.service.original ]; then
+        cd /usr/lib/systemd/system
+        cp git@.service git@.service.original
+    fi
+
+- name: (RedHat) set git@.service
+  template: src=git@.service.j2 dest=/usr/lib/systemd/system/git@.service
+
+- name: (RedHat) set git.xml to firewalld services
+  template: src=firewalld_service_git.xml.j2 dest=/etc/firewalld/services/git.xml
+
+- name: (RedHat) register git service to firewalld
+  shell: |
+    if ! firewall-cmd --list-service --zone=public | grep git > /dev/null 2>&1; then
+        firewall-cmd --permanent --add-service git
+        systemctl restart firewalld.service
+    fi
