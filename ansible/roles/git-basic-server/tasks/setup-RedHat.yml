@@ -11,6 +11,9 @@
 - name: (RedHat) set git@.service
   template: src=git@.service.j2 dest=/usr/lib/systemd/system/git@.service
 
+- name: (RedHat) enable git.socket
+  service: name=git.socket enabled=yes state=started
+
 - name: (RedHat) set git.xml to firewalld services
   template: src=firewalld_service_git.xml.j2 dest=/etc/firewalld/services/git.xml
 
@@ -19,4 +22,12 @@
     if ! firewall-cmd --list-service --zone=public | grep git > /dev/null 2>&1; then
         firewall-cmd --permanent --add-service git
         systemctl restart firewalld.service
+    fi
+
+- name: (RedHat) set git_system_enable_homedirs sebool on
+  shell: |
+    if getsebool git_system_enable_homedirs | grep off > /dev/null 2>&1; then
+        setsebool -P git_system_enable_homedirs on
+        semanage fcontext -a -t git_sys_content_t "{{ git_repo_path }}(/.*)?"
+        restorecon -R -v {{ git_repo_path }}
     fi
