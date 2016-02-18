@@ -1,14 +1,6 @@
 - name: add git repo owner user
   user: name={{ git_repo_owner }} home={{ git_repo_path }}
 
-- name: mkdir git repo
-  file: >
-    path={{ git_repo_path }}
-    state=directory recurse=yes
-    mode=0750
-    owner={{ git_repo_owner }}
-    group={{ git_repo_owner }}
-
 - name: mkdir git repo owner .ssh
   file: >
     path={{ git_repo_path }}/.ssh
@@ -25,11 +17,19 @@
     owner={{ git_repo_owner }}
     group={{ git_repo_owner }}
 
+- name: mkdir git repo
+  file: >
+    path={{ git_repo_path }}
+    state=directory recurse=yes
+    mode=0755
+    owner={{ git_repo_owner }}
+    group={{ git_repo_owner }}
+
 - name: create git repos
   file: >
     path={{ git_repo_path }}/{{ item }}
     state=directory recurse=yes
-    mode=0750
+    mode=0755
     owner={{ git_repo_owner }}
     group={{ git_repo_owner }}
   with_items: git_repos
