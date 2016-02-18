@@ -8,5 +8,6 @@ ExecStart=-/usr/libexec/git-core/git-daemon \
 	--base-path={{ git_repo_path }} \
 	--export-all \
 	--user-path=public_git \
+	--enable=receive-pack \
 	--syslog --inetd --verbose
 StandardInput=socket
