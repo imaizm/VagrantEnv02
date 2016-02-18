@@ -26,9 +26,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		yum install -y git
 		easy_install pip
 		pip install paramiko PyYAML Jinja2 httplib2
-	#	git clone git://github.com/ansible/ansible.git --recursive
-	#	cd ansible
-	#	source ./hacking/env-setup
+		if [ ! -e /home/vagrant/ansible ]; then
+			echo Clone from github...
+			cd /home/vagrant
+			su vagrant -c "git clone git://github.com/ansible/ansible.git --recursive"
+		else
+			echo Update from github...
+			cd /home/vagrant/ansible
+			su vagrant -c "git pull"
+		fi
+		if ! cat /home/vagrant/.bashrc | grep "source /home/vagrant/ansible/hacking/env-setup" > /dev/null 2>&1; then
+			echo Set Ansible Env to .bashrc
+			echo "source /home/vagrant/ansible/hacking/env-setup > /dev/null 2>&1" >> /home/vagrant/.bashrc
+		fi
+		
+		ln -s /vagrant/.vagrant/machines/default/virtualbox/private_key /home/vagrant/.ssh/id_rsa
+		chown -h vagrant:vagrant /home/vagrant/.ssh/id_rsa
 	EOL
 
 end
