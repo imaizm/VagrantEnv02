@@ -93,20 +93,99 @@ http.port: {{ elasticsearch_http_port }}
 #
 # action.destructive_requires_name: true
 
-# ngram
-#index:
-#  analysis:
-#    tokenizer:
-#      ngram_ja_tokenizer:
-#        type: nGram
-#        min_gram: 2
-#        max_gram: 3
-#        token_chars: [letter, digit]
-#    analyzer:
-#      ngram_ja:
-#        type: custom
-#        tokenizer: ngram_ja_tokenizer
-
 # require "bin/plugin install analysis-kuromoji"
-index.analysis.analyzer.default.type: custom
-index.analysis.analyzer.default.tokenizer: kuromoji_tokenizer
+#index:
+#    analysis:
+#        filter:
+#            synonym:
+#                type: synonym
+#                synonyms_path: analysis/synonym.txt
+#            stopword:
+#                type: stop
+#                stopwords_path: analysis/stopword.txt
+#            katakana_stemmer:
+#                type: kuromoji_stemmer
+#        tokenizer:
+#            default_ja_tokenizer:
+#                type: kuromoji_tokenizer
+#                mode: search
+#                user_dictionary: analysis/user_dict.txt
+#           ngram_ja_tokenizer:
+#               type: nGram
+#               min_gram: 2
+#               max_gram: 3
+#               token_chars: [letter, digit]
+#        analyzer:
+#            ja:
+#                alias: [index_analyzer]
+#                type: custom
+#                tokenizer: default_ja_tokenizer
+#                char_filter: [
+#                    html_strip,
+#                    kuromoji_iteration_mark
+#                ]
+#                filter: [
+#                    lowercase,
+#                    cjk_width,
+#                    katakana_stemmer,
+#                    kuromoji_part_of_speech,
+#                    stopword
+#                ]
+#            ja_synonym:
+#               alias: [search_analyzer]
+#               type: custom
+#               tokenizer: default_ja_tokenizer
+#               char_filter: [
+#                   html_strip,
+#                   kuromoji_iteration_mark
+#               ]
+#               filter: [
+#                   lowercase,
+#                   cjk_width,
+#                   katakana_stemmer,
+#                   kuromoji_part_of_speech,
+#                   synonym,
+#                   stopword
+#                ]
+#            ja_ngram:
+#                type: custom
+#                tokenizer: ngram_ja_tokenizer
+#                char_filter: [html_strip]
+#                filter: [
+#                    cjk_width,
+#                    lowercase
+#                ]
+
+index:
+    analysis:
+        filter:
+#            synonym:
+#                type: synonym
+#                synonyms_path: analysis/synonym.txt
+#            stopword:
+#                type: stop
+#                stopwords_path: analysis/stopword.txt
+            katakana_stemmer:
+                type: kuromoji_stemmer
+        tokenizer:
+            default_ja_tokenizer:
+                type: kuromoji_tokenizer
+                mode: search
+                user_dictionary: analysis/user_dict.txt
+        analyzer:
+            default:
+                alias: [index_analyzer]
+                type: custom
+                tokenizer: default_ja_tokenizer
+                char_filter: [
+                    html_strip,
+                    kuromoji_iteration_mark
+                ]
+                filter: [
+                    lowercase,
+                    cjk_width,
+                    katakana_stemmer,
+                    kuromoji_part_of_speech
+#                    synonym,
+#                    stopword
+                ]
