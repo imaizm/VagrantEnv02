@@ -7,7 +7,7 @@
     elasticsearch_install_version: "2.2.0"
     elasticsearch_exec_user: "vagrant"
     elasticsearch_cluster_name: "sample"
-    elasticsearch_http_port: "9201"
+    elasticsearch_http_port: 9200
   roles:
     - elasticsearch
     - elasticsearch_by_pkgmgr
