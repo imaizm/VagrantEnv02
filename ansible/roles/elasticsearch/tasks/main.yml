@@ -20,3 +20,6 @@
 
 - name: configure elasticsearch.yml
   template: src=elasticsearch.yml.j2 dest={{ elasticsearch_install_to }}/elasticsearch-{{ elasticsearch_install_version }}/config/elasticsearch.yml
+
+- include: setup-RedHat.yml
+  when: "ansible_os_family == 'RedHat'"
