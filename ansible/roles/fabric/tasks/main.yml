@@ -1,0 +1,2 @@
+- name: install fabric
+  shell: pip install fabric
