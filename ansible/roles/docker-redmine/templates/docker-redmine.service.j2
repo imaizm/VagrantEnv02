@@ -1,0 +1,21 @@
+[Unit]
+Description=Docker Redmine Container
+Requires=docker.service {{ docker_postgresql_service_name }}.service
+After=docker.service {{ docker_postgresql_service_name }}.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop {{ docker_redmine_container_name }}
+ExecStartPre=-/usr/bin/docker rm {{ docker_redmine_container_name }}
+ExecStartPre=/usr/bin/docker pull sameersbn/redmine
+ExecStart=/usr/bin/docker run \
+  --link {{ docker_postgresql_container_name }}:postgresql \
+  -v {{ docker_redmine_data_path }}:/home/redmine/data:z \
+  --env 'REDMINE_PORT={{ docker_redmine_http_port }}' \
+  -p {{ docker_redmine_http_port }}:80 \
+  --name {{ docker_redmine_container_name }} \
+  sameersbn/redmine
+TimeoutSec=1200
+
+[Install]
+WantedBy=multi-user.target

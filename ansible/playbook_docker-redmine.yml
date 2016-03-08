@@ -1,0 +1,18 @@
+---
+- hosts: servers
+  sudo: true
+  user: vagrant
+  vars:
+    docker_postgresql_service_name: "docker-postgresql"
+    docker_postgresql_container_name: "postgresql"
+    docker_postgresql_data_path: "/var/docker-postgresql"
+    docker_postgresql_db_name: "gitlab"
+    docker_postgresql_user: "gitlab"
+    docker_postgresql_pass: "password"
+    docker_postgresql_port: 8081
+    docker_redmine_service_name: "docker-redmine"
+    docker_redmine_container_name: "redmine"
+    docker_redmine_data_path: "/var/docker-redmine"
+    docker_redmine_http_port: 8080
+  roles:
+    - docker-redmine
