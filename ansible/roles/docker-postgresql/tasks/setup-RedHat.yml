@@ -1,0 +1,8 @@
+- name: (RedHat) mkdir required dirs
+  file: path={{ docker_postgresql_data_path }} state=directory recurse=yes mode=0755
+
+- name: (RedHat) configure docker container services
+  template: src=docker-postgresql.service.j2 dest=/usr/lib/systemd/system/{{ docker_postgresql_service_name }}.service
+
+- name: (RedHat) enable docker container services
+  service: name={{ docker_postgresql_service_name }} enabled=yes state=started

@@ -1,0 +1,8 @@
+- name: (RedHat) mkdir required dirs
+  file: path={{ docker_redis_data_path }} state=directory recurse=yes mode=0755
+
+- name: (RedHat) configure docker container services
+  template: src=docker-redis.service.j2 dest=/usr/lib/systemd/system/{{ docker_redis_service_name }}.service
+
+- name: (RedHat) enable docker container services
+  service: name={{ docker_redis_service_name }} enabled=yes state=started

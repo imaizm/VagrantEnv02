@@ -1,20 +1,8 @@
 - name: (RedHat) mkdir required dirs
-  file: path={{ item }} state=directory recurse=yes mode=0755
-  with_items:
-    - "{{ postgresql_for_gitlab_path }}"
-    - "{{ redis_for_gitlab_path }}"
-    - "{{ gitlab_path }}"
+  file: path={{ docker_gitlab_data_path }} state=directory recurse=yes mode=0755
 
 - name: (RedHat) configure docker container services
-  template: src={{ item }}.j2 dest=/usr/lib/systemd/system/{{ item }}
-  with_items:
-    - "docker-postgresql-for-gitlab.service"
-    - "docker-redis-for-gitlab.service"
-    - "docker-gitlab.service"
+  template: src=docker-gitlab.service.j2 dest=/usr/lib/systemd/system/{{ docker_gitlab_service_name }}.service
 
 - name: (RedHat) enable docker container services
-  service: name={{ item }} enabled=yes state=started
-  with_items:
-    - "docker-postgresql-for-gitlab"
-    - "docker-redis-for-gitlab"
-    - "docker-gitlab"
+  service: name={{ docker_gitlab_service_name }} enabled=yes state=started

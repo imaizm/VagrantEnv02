@@ -3,13 +3,21 @@
   sudo: true
   user: vagrant
   vars:
-    postgresql_for_gitlab_path: "/var/postgresql_for_gitlab"
-    postgresql_for_gitlab_db_name: "gitlab"
-    postgresql_for_gitlab_user: "gitlab"
-    postgresql_for_gitlab_pass: "password"
-    redis_for_gitlab_path: "/var/redis_for_gitlab"
-    gitlab_path: "/var/gitlab"
-    gitlab_http_port: "8080"
-    gitlab_ssh_port: "8022"
+    docker_postgresql_service_name: "docker-postgresql"
+    docker_postgresql_container_name: "postgresql"
+    docker_postgresql_data_path: "/var/docker-postgresql"
+    docker_postgresql_db_name: "gitlab"
+    docker_postgresql_user: "gitlab"
+    docker_postgresql_pass: "password"
+    docker_postgresql_port: 8082
+    docker_redis_service_name: "docker-redis"
+    docker_redis_container_name: "redis"
+    docker_redis_data_path: "/var/docker-redis"
+    docker_redis_port: 8083
+    docker_gitlab_service_name: "docker-gitlab"
+    docker_gitlab_container_name: "gitlab"
+    docker_gitlab_data_path: "/var/docker-gitlab"
+    docker_gitlab_http_port: 8080
+    docker_gitlab_ssh_port: 8081
   roles:
     - docker-gitlab

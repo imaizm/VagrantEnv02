@@ -1,0 +1,22 @@
+[Unit]
+Description=Docker PostgreSQL Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop {{ docker_postgresql_container_name }}
+ExecStartPre=-/usr/bin/docker rm {{ docker_postgresql_container_name }}
+ExecStartPre=/usr/bin/docker pull sameersbn/postgresql
+ExecStart=/usr/bin/docker run \
+  -v {{ docker_postgresql_data_path }}:/var/lib/postgresql:z \
+  --env 'DB_NAME={{ docker_postgresql_db_name }}' \
+  --env 'DB_USER={{ docker_postgresql_user }}' \
+  --env 'DB_PASS={{ docker_postgresql_pass }}' \
+  -p {{ docker_postgresql_port }}:5432 \
+  --name {{ docker_postgresql_container_name }} \
+  sameersbn/postgresql
+TimeoutSec=1200
+
+[Install]
+WantedBy=multi-user.target

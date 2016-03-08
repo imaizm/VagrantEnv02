@@ -1,0 +1,19 @@
+[Unit]
+Description=Docker Redis Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop {{ docker_redis_container_name }}
+ExecStartPre=-/usr/bin/docker rm {{ docker_redis_container_name }}
+ExecStartPre=/usr/bin/docker pull sameersbn/redis
+ExecStart=/usr/bin/docker run \
+  -v {{ docker_redis_data_path }}:/var/lib/redis:z \
+  -p {{ docker_redis_port }}:6379 \
+  --name {{ docker_redis_container_name }} \
+  sameersbn/redis
+TimeoutSec=1200
+
+[Install]
+WantedBy=multi-user.target

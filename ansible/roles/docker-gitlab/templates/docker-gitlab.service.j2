@@ -1,25 +1,25 @@
 [Unit]
 Description=Docker GitLab Container
-Requires=docker.service docker-postgresql-for-gitlab.service docker-redis-for-gitlab.service
-After=docker.service docker-postgresql-for-gitlab.service docker-redis-for-gitlab.service
+Requires=docker.service {{ docker_postgresql_service_name }}.service {{ docker_redis_service_name }}.service
+After=docker.service {{ docker_postgresql_service_name }}.service {{ docker_redis_service_name }}.service
 
 [Service]
 Type=simple
-ExecStartPre=-/usr/bin/docker stop gitlab
-ExecStartPre=-/usr/bin/docker rm gitlab
-ExecStartPre=/usr/bin/docker pull sameersbn/gitlab:8.4.3
+ExecStartPre=-/usr/bin/docker stop {{ docker_gitlab_container_name }}
+ExecStartPre=-/usr/bin/docker rm {{ docker_gitlab_container_name }}
+ExecStartPre=/usr/bin/docker pull sameersbn/gitlab
 ExecStart=/usr/bin/docker run \
-  --link gitlab-postgresql:postgresql \
-  --link gitlab-redis:redisio \
-  -v {{ gitlab_path }}:/home/git/data:z \
-  --env 'GITLAB_PORT={{ gitlab_http_port }}' \
-  --env 'GITLAB_SSH_PORT={{ gitlab_ssh_port }}' \
+  --link {{ docker_postgresql_container_name }}:postgresql \
+  --link {{ docker_redis_container_name }}:redisio \
+  -v {{ docker_gitlab_data_path }}:/home/git/data:z \
+  --env 'GITLAB_PORT={{ docker_gitlab_http_port }}' \
+  --env 'GITLAB_SSH_PORT={{ docker_gitlab_ssh_port }}' \
   --env 'GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alpha-numeric-string' \
   --env 'TZ=Asia/Tokyo' --env 'GITLAB_TIMEZONE=Tokyo' \
-  -p {{ gitlab_http_port }}:80 \
-  -p {{ gitlab_ssh_port }}:22 \
-  --name gitlab \
-  sameersbn/gitlab:8.4.3
+  -p {{ docker_gitlab_http_port }}:80 \
+  -p {{ docker_gitlab_ssh_port }}:22 \
+  --name {{ docker_gitlab_container_name }} \
+  sameersbn/gitlab
 TimeoutSec=1200
 
 [Install]
