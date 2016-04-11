@@ -1,0 +1,19 @@
+[Unit]
+Description=Docker Firefox-VNC Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop {{ docker_firefox_vnc_container_name }}
+ExecStartPre=-/usr/bin/docker rm {{ docker_firefox_vnc_container_name }}
+ExecStartPre=/usr/bin/docker pull consol/centos-xfce-vnc
+ExecStart=/usr/bin/docker run \
+  -d \
+  -p {{ docker_firefox_vnc_port }}:5901 \
+  --name {{ docker_firefox_vnc_container_name }} \
+  consol/centos-xfce-vnc
+TimeoutSec=1200
+
+[Install]
+WantedBy=multi-user.target
