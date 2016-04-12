@@ -3,16 +3,16 @@
 
 - name: (RedHat) check if register elasticsearch http service to firewalld
   shell: firewall-cmd --list-service --zone=public | grep elasticsearch
-  register: check_elasticsearch_registerd_to_firewall
-  failed_when: check_elasticsearch_registerd_to_firewall.rc not in [0, 1]
+  register: result_for_check
+  failed_when: result_for_check.rc not in [0, 1]
 
-- debug: var=check_elasticsearch_registerd_to_firewall
+- debug: var=result_for_check
 
 - name: (RedHat) register elasticsearch http service to firewalld
   shell: |
-    firewall-cmd --permanent --add-service elasticsearch
     systemctl restart firewalld.service
-  when: check_elasticsearch_registerd_to_firewall.rc == 1
-  register: result_register_elasticsearch_to_firewall
+    firewall-cmd --permanent --add-service elasticsearch
+  when: result_for_check.rc == 1
+  register: result_for_debug
 
-- debug: var=result_register_elasticsearch_to_firewall
+- debug: var=result_for_debug

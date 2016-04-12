@@ -5,6 +5,7 @@
   vars:
     docker_firefox_vnc_service_name: "docker-firefox-vnc"
     docker_firefox_vnc_container_name: "firefox-vnc"
+    docker_firefox_vnc_pass: "password"
     docker_firefox_vnc_port: 8089
   roles:
     - docker-firefox-vnc
