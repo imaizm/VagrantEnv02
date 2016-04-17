@@ -1,0 +1,19 @@
+---
+- name: git clone nvm
+  shell: |
+    if [ ! -e /usr/local/nvm ]; then
+        cd /usr/local
+        git clone https://github.com/creationix/nvm.git
+        cd nvm
+        . /usr/local/nvm/nvm.sh
+        nvm install v{{ nodejs_version }}
+    fi
+
+- name: configure docker container services
+  template: src=nvm.sh.j2 dest=/etc/profile.d/nvm.sh
+
+#- include: setup-Debian.yml
+#  when: "ansible_os_family == 'Debian'"
+
+#- include: setup-RedHat.yml
+#  when: "ansible_os_family == 'RedHat'"

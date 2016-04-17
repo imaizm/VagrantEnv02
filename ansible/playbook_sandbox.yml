@@ -1,13 +1,8 @@
 ---
 - hosts: servers
-  sudo: true
+  become: true
   user: vagrant
   vars:
-    elasticsearch_install_to: "/opt"
-    elasticsearch_install_version: "2.2.0"
-    elasticsearch_exec_user: "vagrant"
-    elasticsearch_cluster_name: "sample"
-    elasticsearch_http_port: 8082
+    nodejs_version: "4.4.3"
   roles:
-    - elasticsearch
-    - fabric
+    - node.js
