@@ -1,6 +1,6 @@
 ---
 - hosts: servers
-  sudo: true
+  become: true
   user: vagrant
   vars:
     svn_repo_path: "/var/svn/repo"

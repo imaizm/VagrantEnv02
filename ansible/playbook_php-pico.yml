@@ -1,6 +1,6 @@
 ---
 - hosts: servers
-  sudo: true
+  become: true
   user: vagrant
   vars:
     pico_port: "8080"
