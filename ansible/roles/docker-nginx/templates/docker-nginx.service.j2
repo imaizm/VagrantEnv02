@@ -1,0 +1,20 @@
+[Unit]
+Description=Docker nginx Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop {{ docker_nginx_container_name }}
+ExecStartPre=-/usr/bin/docker rm {{ docker_nginx_container_name }}
+ExecStartPre=/usr/bin/docker pull nginx
+ExecStart=/usr/bin/docker run \
+  -d \
+  -v {{ docker_nginx_data_path }}:/usr/share/nginx/html:z \
+  -p {{ docker_nginx_port }}:80 \
+  --name {{ docker_nginx_container_name }} \
+  nginx
+TimeoutSec=1200
+
+[Install]
+WantedBy=multi-user.target
