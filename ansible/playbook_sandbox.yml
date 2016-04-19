@@ -4,5 +4,8 @@
   user: vagrant
   vars:
     nodejs_version: "4.4.3"
+    gulp_install_to: "/var/www/src/bootstrap-sample"
+    bootstrap_version: "4.0.0-alpha.2"
+    bootstrap_install_to: "/var/www/src/bootstrap-sample"
   roles:
-    - node.js
+    - bootstrap

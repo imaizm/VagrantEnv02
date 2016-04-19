@@ -1,0 +1,15 @@
+---
+- name: npm install gulp
+  shell: |
+    if [ ! -e {{ gulp_install_to }}/scss ]; then
+        mkdir -p {{ gulp_install_to }}
+        cd {{ gulp_install_to }}
+        . /usr/local/nvm/nvm.sh
+        npm install gulp --save-dev --no-bin-links
+    fi
+
+#- include: setup-Debian.yml
+#  when: "ansible_os_family == 'Debian'"
+
+#- include: setup-RedHat.yml
+#  when: "ansible_os_family == 'RedHat'"

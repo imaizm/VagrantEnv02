@@ -1,0 +1,15 @@
+---
+- name: npm install bootstrap
+  shell: |
+    if [ ! -e {{ bootstrap_install_to }}/scss ]; then
+        mkdir -p {{ bootstrap_install_to }}
+        cd {{ bootstrap_install_to }}
+        . /usr/local/nvm/nvm.sh
+        npm install bootstrap@{{ bootstrap_version }} --save --no-bin-links
+    fi
+
+#- include: setup-Debian.yml
+#  when: "ansible_os_family == 'Debian'"
+
+#- include: setup-RedHat.yml
+#  when: "ansible_os_family == 'RedHat'"
