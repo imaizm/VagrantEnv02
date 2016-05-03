@@ -27,12 +27,30 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	config.ssh.forward_x11 = true
 
+	# for Vagrant 1.8.1 bug
+	# https://github.com/mitchellh/vagrant/issues/6793#issuecomment-196498149
+	config.vm.provision :shell, inline: <<SCRIPT
+GALAXY=/usr/local/bin/ansible-galaxy
+echo '#!/usr/bin/env python2
+import sys
+import os
+
+args = sys.argv
+if args[1:] == ["--help"]:
+  args.insert(1, "info")
+
+os.execv("/usr/bin/ansible-galaxy", args)
+' | sudo tee $GALAXY
+sudo chmod 0755 $GALAXY
+SCRIPT
+	
 	config.vm.provision "ansible_local" do |ansible|
-		ansible.playbook = "playbook_sandbox.yml"
+#		ansible.playbook = "playbook_sandbox.yml"
 #		ansible.playbook = "playbook_docker-subversion.yml"
 #		ansible.playbook = "playbook_docker-gitlab.yml"
 #		ansible.playbook = "playbook_docker-redmine.yml"
 #		ansible.playbook = "playbook_docker-firefox-vnc.yml"
+		ansible.playbook = "playbook_docker-nginx.yml"
 #		ansible.playbook = "playbook_elasticsearch.yml"
 #		ansible.playbook = "playbook_php-pico.yml"
 		ansible.provisioning_path = "/var/ansible"

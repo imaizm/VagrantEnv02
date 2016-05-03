@@ -11,6 +11,7 @@ ExecStartPre=/usr/bin/docker pull nginx
 ExecStart=/usr/bin/docker run \
   -d \
   -v {{ docker_nginx_data_path }}:/usr/share/nginx/html:z \
+  -v {{ docker_nginx_conf_path }}/nginx.conf:/etc/nginx/nginx.conf:z \
   -p {{ docker_nginx_port }}:80 \
   --name {{ docker_nginx_container_name }} \
   nginx

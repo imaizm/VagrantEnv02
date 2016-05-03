@@ -1,8 +1,14 @@
 - name: (RedHat) mkdir required dirs
-  file: path={{ docker_nginx_data_path }} state=directory recurse=yes mode=0755
+  file: path={{ item }} state=directory recurse=yes mode=0755
+  with_items:
+    - "{{ docker_nginx_data_path }}"
+    - "{{ docker_nginx_conf_path }}"
 
 - name: (RedHat) configure docker container services
   template: src=docker-nginx.service.j2 dest=/usr/lib/systemd/system/{{ docker_nginx_service_name }}.service
+
+- name: (RedHat) configure docker container services
+  template: src=nginx.conf.j2 dest={{ docker_nginx_conf_path }}/nginx.conf
 
 - name: (RedHat) enable docker container services
   service: name={{ docker_nginx_service_name }} enabled=yes state=started
