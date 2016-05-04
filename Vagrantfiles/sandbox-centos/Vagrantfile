@@ -45,14 +45,15 @@ sudo chmod 0755 $GALAXY
 SCRIPT
 	
 	config.vm.provision "ansible_local" do |ansible|
-#		ansible.playbook = "playbook_sandbox.yml"
+		ansible.playbook = "playbook_sandbox.yml"
 #		ansible.playbook = "playbook_docker-subversion.yml"
 #		ansible.playbook = "playbook_docker-gitlab.yml"
 #		ansible.playbook = "playbook_docker-redmine.yml"
 #		ansible.playbook = "playbook_docker-firefox-vnc.yml"
-		ansible.playbook = "playbook_docker-nginx.yml"
+#		ansible.playbook = "playbook_docker-nginx.yml"
 #		ansible.playbook = "playbook_elasticsearch.yml"
 #		ansible.playbook = "playbook_php-pico.yml"
+#		ansible.playbook = "playbook_bootstrap-sass-build.yml"
 		ansible.provisioning_path = "/var/ansible"
 		ansible.install = true
 		ansible.verbose = false

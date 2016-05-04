@@ -1,4 +1,5 @@
 ---
 dependencies:
   - { role: node.js }
-  - { role: gulp }
+  - { role: gulp-sass }
+  - { role: gulp-autoprefixer }

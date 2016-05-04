@@ -1,12 +1,21 @@
 ---
 - name: npm install bootstrap
   shell: |
-    if [ ! -e {{ bootstrap_install_to }}/scss ]; then
+    if [ ! -e {{ bootstrap_install_to }}/node_modules/bootstrap ]; then
         mkdir -p {{ bootstrap_install_to }}
         cd {{ bootstrap_install_to }}
         . /usr/local/nvm/nvm.sh
         npm install bootstrap@{{ bootstrap_version }} --save --no-bin-links
     fi
+
+- name: set template
+  template: src=gulpfile.js.j2 dest={{ bootstrap_install_to }}/gulpfile.js
+
+- name: build bootstrap
+  shell: |
+    cd {{ bootstrap_install_to }}
+    . /usr/local/nvm/nvm.sh
+    gulp
 
 #- include: setup-Debian.yml
 #  when: "ansible_os_family == 'Debian'"

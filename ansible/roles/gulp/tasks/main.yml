@@ -1,7 +1,13 @@
 ---
+- name: nmp install gulp-cli
+  shell: |
+    cd {{ bootstrap_install_to }}
+    . /usr/local/nvm/nvm.sh
+    npm install -g gulp-cli
+
 - name: npm install gulp
   shell: |
-    if [ ! -e {{ gulp_install_to }}/scss ]; then
+    if [ ! -e {{ gulp_install_to }}/node_modules/gulp ]; then
         mkdir -p {{ gulp_install_to }}
         cd {{ gulp_install_to }}
         . /usr/local/nvm/nvm.sh

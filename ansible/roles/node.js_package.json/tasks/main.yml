@@ -1,0 +1,3 @@
+---
+- name: set template
+  template: src=package.json.j2 dest={{ packagejson_install_to }}/package.json
