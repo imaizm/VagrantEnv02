@@ -1,3 +1,6 @@
 ---
+- name: mkdir required dirs
+  file: path={{ packagejson_install_to }} state=directory recurse=yes mode=0755
+
 - name: set template
   template: src=package.json.j2 dest={{ packagejson_install_to }}/package.json
