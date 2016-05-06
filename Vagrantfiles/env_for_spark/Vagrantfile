@@ -5,7 +5,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	config.vm.box = "relativkreativ/centos-7-minimal"
 
+	config.vm.network :private_network, ip:"192.168.33.10"
 	config.vm.hostname = "localhost"
+
+	config.vm.network :forwarded_port, guest: 4040, host: 14040 # SparkUI
+	config.vm.network :forwarded_port, guest: 8080, host: 18080 # Spark Master
 
 	config.vm.synced_folder ".", "/vagrant", :create => true, :owner => 'vagrant', :group => 'vagrant', :mount_options => ['dmode=777', 'fmode=600']
 	config.vm.synced_folder "../../src", "/var/www/src", :create => true, :owner => 'vagrant', :group => 'vagrant', :mount_options => ['dmode=777', 'fmode=666']
@@ -21,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			chown -h vagrant:vagrant /home/vagrant/.ssh/id_rsa
 		fi
 		cd /var/ansible
-		ansible-playbook -i /vagrant/hosts playbook_sandbox.yml
+		ansible-playbook -i /vagrant/hosts playbook_spark.yml
 	EOL
 
 end

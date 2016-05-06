@@ -10,6 +10,9 @@
         build/mvn -DskipTests clean package > /dev/null 2>&1
     fi
 
+- name: set template
+  template: src=setENV_for_Spark.sh.j2 dest=/etc/profile.d/setENV_for_Spark.sh
+
 #- include: setup-Debian.yml
 #  when: "ansible_os_family == 'Debian'"
 
