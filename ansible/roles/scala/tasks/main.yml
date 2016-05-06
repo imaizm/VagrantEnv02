@@ -1,0 +1,18 @@
+---
+- name: install spark
+  shell: |
+    if [ ! -e {{ scala_install_to }}/scala-{{ scala_install_version }} ]; then
+        cd {{ scala_install_to }}
+        curl -sSL http://downloads.lightbend.com/scala/{{ scala_install_version }}/scala-{{ scala_install_version }}.tgz -o scala.tgz
+        tar zxf scala.tgz > /dev/null 2>&1
+        rm scala.tgz
+    fi
+
+- name: set template
+  template: src=setENV_for_Scala.sh.j2 dest=/etc/profile.d/setENV_for_Scala.sh
+
+#- include: setup-Debian.yml
+#  when: "ansible_os_family == 'Debian'"
+
+#- include: setup-RedHat.yml
+#  when: "ansible_os_family == 'RedHat'"

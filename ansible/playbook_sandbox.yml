@@ -3,13 +3,10 @@
   become: true
   user: vagrant
   vars:
-    nodejs_version: "4.4.3"
-    packagejson_install_to: "/var/www/src/bootstrap-sample"
-    packagejson_app_name: "sample-app"
-    packagejson_app_version: "0.0.1"
-    gulp_install_to: "/var/www/src/bootstrap-sample"
-    bootstrap_version: "4.0.0-alpha.2"
-    bootstrap_install_to: "/var/www/src/bootstrap-sample"
+    scala_install_to: "/opt"
+    scala_install_version: "2.11.8"
+    spark_install_to: "/opt"
+    spark_install_version: "1.6.1"
   roles:
-    - node.js_package.json
-    - bootstrap
+    - scala
+    - spark

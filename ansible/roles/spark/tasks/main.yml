@@ -1,0 +1,17 @@
+---
+- name: install spark
+  shell: |
+    if [ ! -e {{ spark_install_to }}/spark-{{ spark_install_version }} ]; then
+        cd {{ spark_install_to }}
+        curl -sSL http://ftp.riken.jp/net/apache/spark/spark-{{ spark_install_version }}/spark-{{ spark_install_version }}.tgz -o spark.tgz
+        tar zxf spark.tgz > /dev/null 2>&1
+        rm spark.tgz
+        cd spark-{{ spark_install_version }}
+        build/mvn -DskipTests clean package > /dev/null 2>&1
+    fi
+
+#- include: setup-Debian.yml
+#  when: "ansible_os_family == 'Debian'"
+
+#- include: setup-RedHat.yml
+#  when: "ansible_os_family == 'RedHat'"
