@@ -1,0 +1,19 @@
+- name: (RedHat) set xml files to firewalld services
+  template: src=firewalld_service_{{ item }}.xml.j2 dest=/etc/firewalld/services/{{ item }}.xml
+  with_items:
+    - "spark_master"
+    - "spark_ui"
+
+- name: (RedHat) is services already registered to firewalld
+  shell: firewall-cmd --list-service --zone=public | grep spark_master
+  register: check_result
+  failed_when: check_result not in [0, 1]
+
+- debug: var=check_result
+
+- name: (RedHat) register services to firewalld
+  shell: |
+    firewall-cmd --permanent --add-service spark_master
+    firewall-cmd --permanent --add-service spark_ui
+    firewall-cmd --reload
+  when: check_result.rc == 1
