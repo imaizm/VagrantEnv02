@@ -7,7 +7,7 @@
 - name: (RedHat) is services already registered to firewalld
   shell: firewall-cmd --list-service --zone=public | grep spark_master
   register: check_result
-  failed_when: check_result not in [0, 1]
+  failed_when: check_result.rc not in [0, 1]
 
 - debug: var=check_result
 
