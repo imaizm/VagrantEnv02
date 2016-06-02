@@ -51,6 +51,7 @@ SCRIPT
 #		ansible.playbook = "playbook_docker-redmine.yml"
 #		ansible.playbook = "playbook_docker-firefox-vnc.yml"
 #		ansible.playbook = "playbook_docker-nginx.yml"
+#		ansible.playbook = "playbook_docker-elasticsearch.yml"
 #		ansible.playbook = "playbook_elasticsearch.yml"
 #		ansible.playbook = "playbook_php-pico.yml"
 #		ansible.playbook = "playbook_bootstrap-sass-build.yml"
