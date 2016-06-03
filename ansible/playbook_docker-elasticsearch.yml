@@ -5,6 +5,7 @@
   vars:
     docker_elasticsearch_service_name: "docker-elasticsearch"
     docker_elasticsearch_container_name: "elasticsearch"
+    docker_elasticsearch_version: "2.2.0"
     docker_elasticsearch_http_port: 9200
     docker_elasticsearch_transport_port: 9300
   roles:
