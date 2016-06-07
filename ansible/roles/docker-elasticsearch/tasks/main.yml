@@ -1,6 +1,22 @@
 ---
+- name: mkdir required dirs
+  file: path={{ item }} state=directory recurse=yes mode=0755
+  with_items:
+    - "{{ docker_elasticsearch_conf_path }}"
+    - "{{ docker_elasticsearch_conf_path }}/scripts"
+
+- name: configure elasticsearch
+  template: src={{ item }}.j2 dest={{ docker_elasticsearch_conf_path }}/{{ item }}
+  with_items:
+    - "elasticsearch.yml"
+    - "logging.yml"
+
 #- include: setup-Debian.yml
 #  when: "ansible_os_family == 'Debian'"
 
 - include: setup-RedHat.yml
   when: "ansible_os_family == 'RedHat'"
+
+- name: install elasticsearch-head plugin
+  shell: |
+    docker exec -it {{ docker_elasticsearch_container_name }} /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head > /dev/null
