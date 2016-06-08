@@ -9,5 +9,6 @@
     docker_elasticsearch_http_port: 9200
     docker_elasticsearch_transport_port: 9300
     docker_elasticsearch_conf_path: "/var/docker-elasticsearch/conf"
+    docker_elasticsearch_log_path: "/var/docker-elasticsearch/logs"
   roles:
     - docker-elasticsearch

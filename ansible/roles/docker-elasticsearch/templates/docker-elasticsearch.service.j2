@@ -12,6 +12,7 @@ ExecStart=/usr/bin/docker run \
   -p {{ docker_elasticsearch_http_port }}:9200 \
   -p {{ docker_elasticsearch_transport_port }}:9300 \
   -v {{ docker_elasticsearch_conf_path }}:/usr/share/elasticsearch/config:z \
+  -v {{ docker_elasticsearch_log_path }}:/usr/share/elasticsearch/logs:z \
   --name {{ docker_elasticsearch_container_name }} \
   elasticsearch:{{ docker_elasticsearch_version }}
 TimeoutSec=1200

@@ -13,6 +13,7 @@
 
 - name: (RedHat) register services to firewalld
   shell: |
+    systemctl restart firewalld.service
     firewall-cmd --permanent --add-service spark_master
     firewall-cmd --permanent --add-service spark_ui
     firewall-cmd --reload

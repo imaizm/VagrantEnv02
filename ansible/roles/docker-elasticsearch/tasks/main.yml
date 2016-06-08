@@ -4,6 +4,7 @@
   with_items:
     - "{{ docker_elasticsearch_conf_path }}"
     - "{{ docker_elasticsearch_conf_path }}/scripts"
+    - "{{ docker_elasticsearch_log_path }}"
 
 - name: configure elasticsearch
   template: src={{ item }}.j2 dest={{ docker_elasticsearch_conf_path }}/{{ item }}
