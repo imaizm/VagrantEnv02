@@ -23,3 +23,6 @@ hs_err_pid*
 src/Pico
 src/git
 src/bootstrap-sample
+
+# Mac
+.DS_Store
