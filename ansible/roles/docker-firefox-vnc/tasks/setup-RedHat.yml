@@ -3,3 +3,6 @@
 
 - name: (RedHat) enable docker container services
   service: name={{ docker_firefox_vnc_service_name }} enabled=yes state=started
+
+- name: (RedHat) configure Dockerfile
+  template: src=Dockerfile.j2 dest=/tmp/Dockerfile
