@@ -1,28 +1,32 @@
 FROM consol/centos-xfce-vnc
 
 RUN yum -y install ibus-kkc && yum clean all
-RUN sed -i -e '/##start vncserver/i export LANG=ja_JP.UTF8\nexport GTK_IM_MODULE=ibus' /root/scripts/vnc_startup.sh
-RUN sed -i -e '/##start vncserver/i export XMODIFIERS=@im=ibus' /root/scripts/vnc_startup.sh
-RUN sed -i -e '/##start vncserver/i export QT_IM_MODULE=ibus' /root/scripts/vnc_startup.sh
-RUN sed -i -e '/##start vncserver/i ibus-daemon -drx\n' /root/scripts/vnc_startup.sh
+ADD ibus-setup.desktop /root/Desktop/ibus-setup.desktop
+ADD ibus-setup.sh /root/scripts/ibus-setup.sh
+RUN chmod +x /root/scripts/ibus-setup.sh
 
-RUN sed -i -e "/##start the xfce4 session/i dconf write /desktop/ibus/general/engines-order \"['kkc', 'xkb:us::eng']\"" /root/.vnc/xstartup
-RUN sed -i -e '/##start the xfce4 session/i dconf write /desktop/ibus/general/preload-engine-mode 0' /root/.vnc/xstartup
-RUN sed -i -e '/##start the xfce4 session/i dconf write /desktop/ibus/general/preload-engines-inited true' /root/.vnc/xstartup
-RUN sed -i -e "/##start the xfce4 session/i dconf write /desktop/ibus/general/preload-engines \"['xkb:us::eng', 'kkc']\"" /root/.vnc/xstartup
-RUN sed -i -e "/##start the xfce4 session/i dconf write /desktop/ibus/general/hotkey/triggers \"['<Control>space']\"" /root/.vnc/xstartup
+#RUN sed -i -e '/##start vncserver/i export LANG=ja_JP.UTF8\nexport GTK_IM_MODULE=ibus' /root/scripts/vnc_startup.sh
+#RUN sed -i -e '/##start vncserver/i export XMODIFIERS=@im=ibus' /root/scripts/vnc_startup.sh
+#RUN sed -i -e '/##start vncserver/i export QT_IM_MODULE=ibus' /root/scripts/vnc_startup.sh
+#RUN sed -i -e '/##start vncserver/i ibus-daemon -drx\n' /root/scripts/vnc_startup.sh
 
-RUN sed -i -e "$ i dconf write /desktop/ibus/general/engines-order \"['kkc', 'xkb:us::eng']\"" /etc/xdg/xfce4/xinitrc
-RUN sed -i -e '$ i dconf write /desktop/ibus/general/preload-engine-mode 0' /etc/xdg/xfce4/xinitrc
-RUN sed -i -e '$ i dconf write /desktop/ibus/general/preload-engines-inited true' /etc/xdg/xfce4/xinitrc
-RUN sed -i -e "$ i dconf write /desktop/ibus/general/preload-engines \"['xkb:us::eng', 'kkc']\"" /etc/xdg/xfce4/xinitrc
-RUN sed -i -e "$ i dconf write /desktop/ibus/general/hotkey/triggers \"['<Control>space']\"" /etc/xdg/xfce4/xinitrc
-RUN sed -i -e '$ i ibus restart\n' /etc/xdg/xfce4/xinitrc
-/etc/xdg/xfce4/xinitrc
+#RUN sed -i -e "/##start the xfce4 session/i dconf write /desktop/ibus/general/engines-order \"['kkc', 'xkb:us::eng']\"" /root/.vnc/xstartup
+#RUN sed -i -e '/##start the xfce4 session/i dconf write /desktop/ibus/general/preload-engine-mode 0' /root/.vnc/xstartup
+#RUN sed -i -e '/##start the xfce4 session/i dconf write /desktop/ibus/general/preload-engines-inited true' /root/.vnc/xstartup
+#RUN sed -i -e "/##start the xfce4 session/i dconf write /desktop/ibus/general/preload-engines \"['xkb:us::eng', 'kkc']\"" /root/.vnc/xstartup
+#RUN sed -i -e "/##start the xfce4 session/i dconf write /desktop/ibus/general/hotkey/triggers \"['<Control>space']\"" /root/.vnc/xstartup
 
-RUN echo -e "dconf write /desktop/ibus/general/engines-order \"['kkc', 'xkb:us::eng']\"" > /root/.xinitrc
-RUN echo -e 'dconf write /desktop/ibus/general/preload-engine-mode 0'  >> /root/.xinitrc
-RUN echo -e 'dconf write /desktop/ibus/general/preload-engines-inited true'  >> /root/.xinitrc
-RUN echo -e "dconf write /desktop/ibus/general/preload-engines \"['xkb:us::eng', 'kkc']\""  >> /root/.xinitrc
-RUN echo -e "dconf write /desktop/ibus/general/hotkey/triggers \"['<Control>space']\""  >> /root/.xinitrc
-RUN echo -e 'ibus restart\n'  > /root/.xinitrc
+#RUN sed -i -e "$ i dconf write /desktop/ibus/general/engines-order \"['kkc', 'xkb:us::eng']\"" /etc/xdg/xfce4/xinitrc
+#RUN sed -i -e '$ i dconf write /desktop/ibus/general/preload-engine-mode 0' /etc/xdg/xfce4/xinitrc
+#RUN sed -i -e '$ i dconf write /desktop/ibus/general/preload-engines-inited true' /etc/xdg/xfce4/xinitrc
+#RUN sed -i -e "$ i dconf write /desktop/ibus/general/preload-engines \"['xkb:us::eng', 'kkc']\"" /etc/xdg/xfce4/xinitrc
+#RUN sed -i -e "$ i dconf write /desktop/ibus/general/hotkey/triggers \"['<Control>space']\"" /etc/xdg/xfce4/xinitrc
+#RUN sed -i -e '$ i ibus restart\n' /etc/xdg/xfce4/xinitrc
+#/etc/xdg/xfce4/xinitrc
+
+#RUN echo -e "dconf write /desktop/ibus/general/engines-order \"['kkc', 'xkb:us::eng']\"" > /root/.xinitrc
+#RUN echo -e 'dconf write /desktop/ibus/general/preload-engine-mode 0'  >> /root/.xinitrc
+#RUN echo -e 'dconf write /desktop/ibus/general/preload-engines-inited true'  >> /root/.xinitrc
+#RUN echo -e "dconf write /desktop/ibus/general/preload-engines \"['xkb:us::eng', 'kkc']\""  >> /root/.xinitrc
+#RUN echo -e "dconf write /desktop/ibus/general/hotkey/triggers \"['<Control>space']\""  >> /root/.xinitrc
+#RUN echo -e 'ibus restart\n'  > /root/.xinitrc

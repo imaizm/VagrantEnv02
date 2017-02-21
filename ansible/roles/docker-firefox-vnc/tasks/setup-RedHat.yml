@@ -6,3 +6,9 @@
 
 - name: (RedHat) configure Dockerfile
   template: src=Dockerfile.j2 dest=/tmp/Dockerfile
+
+- name: (RedHat) configure ibus-setup.desktop
+  template: src=ibus-setup.desktop.j2 dest=/tmp/ibus-setup.desktop
+
+- name: (RedHat) configure ibus-setup.sh
+  template: src=ibus-setup.sh.j2 dest=/tmp/ibus-setup.sh
