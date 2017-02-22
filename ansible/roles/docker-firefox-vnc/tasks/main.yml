@@ -1,4 +1,19 @@
 ---
+- name: docker build work directory
+  file: path=/tmp/{{ docker_firefox_vnc_service_name }} state=directory owner=vagrant group=vagrant mode=0755
+
+- name: configure Dockerfile
+  template: src=Dockerfile.j2 dest=/tmp/{{ docker_firefox_vnc_service_name }}/Dockerfile
+
+- name: configure ibus-setup.desktop
+  template: src=ibus-setup.desktop.j2 dest=/tmp/{{ docker_firefox_vnc_service_name }}/ibus-setup.desktop
+
+- name: configure ibus-setup.sh
+  template: src=ibus-setup.sh.j2 dest=/tmp/{{ docker_firefox_vnc_service_name }}/ibus-setup.sh
+
+- name: docker build
+  shell: docker build -t {{ docker_firefox_vnc_service_name }} /tmp/{{ docker_firefox_vnc_service_name }}
+
 #- include: setup-Debian.yml
 #  when: "ansible_os_family == 'Debian'"
 

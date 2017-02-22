@@ -7,14 +7,13 @@ After=docker.service
 Type=simple
 ExecStartPre=-/usr/bin/docker stop {{ docker_firefox_vnc_container_name }}
 ExecStartPre=-/usr/bin/docker rm {{ docker_firefox_vnc_container_name }}
-ExecStartPre=/usr/bin/docker pull consol/centos-xfce-vnc
 ExecStart=/usr/bin/docker run \
   -d \
   -p {{ docker_firefox_vnc_port }}:5901 \
   -p {{ docker_firefox_novnc_port }}:6901 \
   -e "VNC_PW={{ docker_firefox_vnc_pass }}" \
   --name {{ docker_firefox_vnc_container_name }} \
-  consol/centos-xfce-vnc
+  {{ docker_firefox_vnc_service_name }}
 TimeoutSec=1200
 
 [Install]
