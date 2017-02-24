@@ -1,0 +1,20 @@
+[Unit]
+Description=Docker phpLDAPAdmin Container
+Requires=docker.service {{ docker_openldap_service_name }}.service
+After=docker.service {{ docker_openldap_service_name }}.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop {{ docker_phpldapadmin_container_name }}
+ExecStartPre=-/usr/bin/docker rm {{ docker_phpldapadmin_container_name }}
+ExecStartPre=/usr/bin/docker pull dinkel/phpldapadmin
+ExecStart=/usr/bin/docker run \
+  -d \
+  -p {{ docker_phpldapadmin_port }}:80 \
+  --link {{ docker_openldap_container_name }}:openldap \
+  --name {{ docker_phpldapadmin_container_name }} \
+  dinkel/phpldapadmin
+TimeoutSec=1200
+
+[Install]
+WantedBy=multi-user.target

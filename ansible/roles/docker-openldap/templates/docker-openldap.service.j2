@@ -1,0 +1,21 @@
+[Unit]
+Description=Docker OpenLDAP Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop {{ docker_openldap_container_name }}
+ExecStartPre=-/usr/bin/docker rm {{ docker_openldap_container_name }}
+ExecStartPre=/usr/bin/docker pull dinkel/openldap
+ExecStart=/usr/bin/docker run \
+  -d \
+  -p {{ docker_openldap_port }}:389 \
+  -e SLAPD_PASSWORD={{ docker_openldap_password }} \
+  -e SLAPD_DOMAIN={{ docker_openldap_domain }} \
+  --name {{ docker_openldap_container_name }} \
+  dinkel/openldap
+TimeoutSec=1200
+
+[Install]
+WantedBy=multi-user.target

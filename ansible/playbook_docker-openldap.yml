@@ -1,0 +1,16 @@
+---
+- hosts: servers
+  become: true
+  user: vagrant
+  vars:
+    docker_openldap_service_name: "docker-openldap"
+    docker_openldap_container_name: "openldap"
+    docker_openldap_password: "password"
+    docker_openldap_domain: "ldap.example.org"
+    docker_openldap_port: 8081
+    docker_phpldapadmin_service_name: "docker-phpldapadmin"
+    docker_phpldapadmin_container_name: "phpldapadmin"
+    docker_phpldapadmin_port: 8080
+  roles:
+    - docker-openldap
+    - docker-phpldapadmin

@@ -1,0 +1,5 @@
+- name: (RedHat) configure docker container services
+  template: src=docker-openldap.service.j2 dest=/usr/lib/systemd/system/{{ docker_openldap_service_name }}.service
+
+- name: (RedHat) enable docker container services
+  service: name={{ docker_openldap_service_name }} enabled=yes state=started
