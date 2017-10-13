@@ -1,0 +1,9 @@
+---
+- hosts: servers
+  become: true
+  user: vagrant
+  vars:
+    xxx_port: "8080"
+  roles:
+    - git
+    - python-pip

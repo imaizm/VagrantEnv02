@@ -1,0 +1,10 @@
+- name: (RedHat) add IUS Community Project's repo
+  yum: name=https://centos7.iuscommunity.org/ius-release.rpm state=installed
+
+- name: (RedHat) install Python3 modules
+  yum: name={{item}} state=installed
+  with_items:
+    - python36u
+    - python36u-libs
+    - python36u-devel
+    - python36u-pip

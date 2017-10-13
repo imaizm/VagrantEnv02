@@ -1,2 +1,2 @@
-- name: install pip
-  shell: easy_install pip
+- include: setup-RedHat.yml
+  when: "ansible_os_family == 'RedHat'"
